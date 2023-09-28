@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MessageParser {
+open class MessageParser {
     public static let lf: UInt8 = 0x0A
     public static let semicolon: UInt8 = 0x3a
     
@@ -18,7 +18,7 @@ public class MessageParser {
         
     }
     
-    public func parsed(from data: Data) -> [ServerMessage] {
+    open func parsed(from data: Data) -> [any ServerMessageProvider] {
         // Split message with double newline
         let rawMessages: [Data]
         if #available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, *) {
