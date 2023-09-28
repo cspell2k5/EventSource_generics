@@ -29,7 +29,7 @@ public final class EventSource {
     /// Events channel subject type.
     public enum ChannelSubject {
         case error(Error)
-        case message(ServerMessage)
+        case message(any ServerMessageProvider)
         case open
         case closed
     }

@@ -8,7 +8,35 @@
 
 import Foundation
 
-public struct ServerMessage {
+public protocol ServerMessageProvider {
+    associatedtype C: Codable
+    associatedtype T: ServerMessageProvider
+    init(event: C)
+    
+    static func parse(from data: Data) -> (T)?
+}
+
+
+public struct Event: Codable {
+    public var id: String?
+    public var event: String?
+    public var data: String?
+    public var time: String?
+}
+
+
+public struct ServerMessage: ServerMessageProvider {
+    
+    public typealias C = Event
+    public typealias T = ServerMessage
+    
+    public init(event: Event) {
+        self.id = event.id
+        self.event = event.event
+        self.data = event.data
+        self.time = event.time
+    }
+    
     public var id: String?
     public var event: String?
     public var data: String?
@@ -25,7 +53,7 @@ public struct ServerMessage {
         self.data = data
         self.time = time
     }
-    
+
     private func isEmpty() -> Bool {
         if let id, !id.isEmpty {
             return false

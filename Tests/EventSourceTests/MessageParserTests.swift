@@ -28,7 +28,7 @@ final class MessageParserTests: XCTestCase {
         """
         let data = Data(text.utf8)
         
-        let messages = parser.parsed(from: data)
+        let messages = parser.parsed(from: data) as! [ServerMessage]
         
         XCTAssertEqual(messages.count, 5)
         
